@@ -20,4 +20,6 @@ dependencies {
     implementation(projects.engine.game)
     implementation(projects.engine.map)
     implementation(projects.engine.plugin)
+    implementation(projects.content.drops)
+    implementation(projects.api.dropsCommons)
 }

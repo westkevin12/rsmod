@@ -7,6 +7,7 @@ import org.rsmod.api.config.refs.objs
 import org.rsmod.api.config.refs.params
 import org.rsmod.api.config.refs.varns
 import org.rsmod.api.config.refs.varps
+import org.rsmod.api.drops.DropService
 import org.rsmod.api.npc.access.StandardNpcAccess
 import org.rsmod.api.npc.vars.typePlayerUidVarn
 import org.rsmod.api.player.output.soundSynth
@@ -18,6 +19,7 @@ import org.rsmod.game.entity.Npc
 import org.rsmod.game.entity.Player
 import org.rsmod.game.entity.PlayerList
 import org.rsmod.game.entity.npc.NpcUid
+import org.rsmod.game.type.obj.ObjTypeList
 import org.rsmod.game.type.seq.SeqTypeList
 import org.rsmod.map.CoordGrid
 
@@ -29,6 +31,8 @@ constructor(
     private val seqTypes: SeqTypeList,
     private val players: PlayerList,
     private val objRepo: ObjRepository,
+    private val objTypes: ObjTypeList,
+    private val dropService: DropService,
 ) {
     public suspend fun deathNoDrops(access: StandardNpcAccess) {
         access.death(npcRepo, seqTypes, players)
@@ -43,11 +47,30 @@ constructor(
     }
 
     private fun Npc.spawnDeathDrops(dropCoords: CoordGrid) {
-        // TODO: Drop tables.
         val hero = findHero(players)
         if (hero != null) {
             val duration = hero.lootDropDuration ?: constants.lootdrop_duration
-            objRepo.add(objs.bones, dropCoords, duration, hero)
+            val drops = dropService.roll(type.id)
+            if (drops.isEmpty()) {
+                objRepo.add(
+                    type = objs.bones,
+                    count = 1,
+                    coords = dropCoords,
+                    duration = duration,
+                    receiver = hero,
+                )
+                return
+            }
+            for (drop in drops) {
+                val type = objTypes[drop.id] ?: continue
+                objRepo.add(
+                    type = type,
+                    count = drop.count,
+                    coords = dropCoords,
+                    duration = duration,
+                    receiver = hero,
+                )
+            }
         }
     }
 

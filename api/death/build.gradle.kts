@@ -18,4 +18,5 @@ dependencies {
     implementation(projects.api.type.typeReferences)
     implementation(projects.engine.game)
     implementation(projects.engine.map)
+    implementation(projects.api.dropsCommons)
 }
