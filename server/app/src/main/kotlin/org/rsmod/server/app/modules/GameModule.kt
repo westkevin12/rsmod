@@ -1,6 +1,7 @@
 package org.rsmod.server.app.modules
 
 import org.rsmod.api.core.CoreModule
+import org.rsmod.api.drops.DropModule
 import org.rsmod.api.game.process.MainGameProcess
 import org.rsmod.events.KeyedEventMap
 import org.rsmod.events.SuspendEventMap
@@ -22,6 +23,7 @@ object GameModule : ExtendedModule() {
     override fun bind() {
         install(CoreModule)
         install(EventModule)
+        install(DropModule())
         bindInstance<GameUpdate>()
         bindInstance<MapClock>()
         bindInstance<NpcList>()

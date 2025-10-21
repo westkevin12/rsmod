@@ -41,4 +41,5 @@ dependencies {
 tasks.named<JavaExec>("run") {
     description = "Runs the RS Mod game server"
     workingDir = rootProject.projectDir
+    dependsOn(project(":api:drops-commons").tasks.named("packDrops"))
 }
