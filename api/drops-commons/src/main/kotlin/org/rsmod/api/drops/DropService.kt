@@ -1,11 +1,8 @@
 package org.rsmod.api.drops
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.michaelbull.logging.InlineLogger
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
-import java.io.File
 import kotlin.random.Random
 
 private val logger = InlineLogger()
@@ -17,9 +14,7 @@ private data class SharedDropFile(val tables: List<SharedDropTable> = emptyList(
 private data class SharedDropTable(val name: String, val main: List<Drop> = emptyList())
 
 @Singleton
-public class DropService @Inject constructor(
-    private val dropTables: Map<Int, NpcDropTable>
-) {
+public class DropService @Inject constructor(private val dropTables: Map<Int, NpcDropTable>) {
     public fun roll(npcId: Int): List<RolledDrop> {
         val table = dropTables[npcId] ?: return emptyList()
         val drops = mutableListOf<RolledDrop>()
@@ -27,7 +22,8 @@ public class DropService @Inject constructor(
         // Add guaranteed drops
         for (drop in table.guaranteed) {
             if (drop.id == 0) continue
-            val count = if (drop.min >= drop.max) drop.min else Random.nextInt(drop.min, drop.max + 1)
+            val count =
+                if (drop.min >= drop.max) drop.min else Random.nextInt(drop.min, drop.max + 1)
             if (count > 0) {
                 drops.add(RolledDrop(drop.id, count))
             }
@@ -42,7 +38,9 @@ public class DropService @Inject constructor(
                 val weight = drop.weight ?: 0
                 if (roll < weight) {
                     if (drop.id != 0) {
-                        val count = if (drop.min >= drop.max) drop.min else Random.nextInt(drop.min, drop.max + 1)
+                        val count =
+                            if (drop.min >= drop.max) drop.min
+                            else Random.nextInt(drop.min, drop.max + 1)
                         if (count > 0) {
                             drops.add(RolledDrop(drop.id, count))
                         }
