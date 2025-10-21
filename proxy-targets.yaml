@@ -1,0 +1,5 @@
+config:
+  - name: rsmod-server
+    jav_config_url: http://localhost:43594/jav_config.ws
+    revision: 233
+    modulus: bef65158e694874dac0443bc42fad8d98f3f18ca8ee05ac15b411c49506317b6a4f0dda4d813e0ec633c65fe0b5155f50d971fae3d72adc911544bc60fd5123221e4ff563eb031304ccaaa7c0c13b9d40cad2369e1620f17a06348b70891fa5dfb0c1c653224b7ab7d075c2345a028837ea1d47c6b29f5695f4aee80a5fb8769

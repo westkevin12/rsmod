@@ -17,7 +17,7 @@ public class NpcRepository
 constructor(
     private val mapClock: MapClock,
     private val registry: NpcRegistry,
-    private val npcList: NpcList,
+    public val npcList: NpcList,
 ) {
     private val addNpcs = ObjectArrayList<Npc>()
     private val delNpcs = ObjectArrayList<Npc>()

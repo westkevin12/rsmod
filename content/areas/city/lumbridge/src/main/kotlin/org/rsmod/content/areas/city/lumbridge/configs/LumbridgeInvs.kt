@@ -19,10 +19,13 @@ object LumbridgeInvBuilder : InvEditor() {
             stack = InvStackType.Always
             autoSize = true
             restock = true
-            stock += stock(objs.bronze_pickaxe, count = 5, restockCycles = 100)
-            stock += stock(objs.bronze_axe, count = 10, restockCycles = 100)
-            stock += stock(objs.iron_axe, count = 5, restockCycles = 200)
-            stock += stock(objs.steel_axe, count = 3, restockCycles = 400)
+            stock += stock(objs.bronze_pickaxe, count = 2000, restockCycles = 100)
+            stock += stock(objs.bronze_axe, count = 2000, restockCycles = 100)
+            stock += stock(objs.iron_axe, count = 2000, restockCycles = 200)
+            stock += stock(objs.steel_axe, count = 2000, restockCycles = 400)
+            stock += stock(objs.mithril_axe, count = 2000, restockCycles = 500)
+            stock += stock(objs.adamant_axe, count = 2000, restockCycles = 500)
+            stock += stock(objs.rune_axe, count = 2000, restockCycles = 500)
             stock += stock(objs.iron_battleaxe, count = 5, restockCycles = 100)
             stock += stock(objs.steel_battleaxe, count = 2, restockCycles = 200)
             stock += stock(objs.mithril_battleaxe, count = 1, restockCycles = 3000)
