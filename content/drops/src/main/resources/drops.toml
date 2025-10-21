@@ -39,29 +39,9 @@ max = 1
 id = 2132
 min = 1
 max = 1
-[[table.main]]
-id = 995
-min = 1
-max = 50
-weight = 10
-[[table.main]]
-id = 1153
-min = 1
-max = 1
-weight = 5
-[[table.main]]
-id = 1917
-min = 1
-max = 1
-weight = 2
-[[table.main]]
-id = 0
-min = 0
-max = 0
-weight = 83
 
 [[table]]
-ids = [1173, 1174, 1838, 1839, 2804, 2805, 2806]
+ids = [1173, 1174, 1838, 1839, 2003, 2004, 2804, 2805, 2806]
 [[table.guaranteed]]
 id = 526
 min = 1
@@ -74,23 +54,4 @@ max = 15
 id = 2138
 min = 1
 max = 1
-[[table.main]]
-id = 995
-min = 1
-max = 50
-weight = 10
-[[table.main]]
-id = 1153
-min = 1
-max = 1
-weight = 5
-[[table.main]]
-id = 1917
-min = 1
-max = 1
-weight = 2
-[[table.main]]
-id = 0
-min = 0
-max = 0
-weight = 83
+
