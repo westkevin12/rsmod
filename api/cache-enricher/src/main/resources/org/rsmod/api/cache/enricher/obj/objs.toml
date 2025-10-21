@@ -35137,3 +35137,14 @@ obj = 'huntguide_desert_beast'
 untradable = true
 dummyitem = 2
 
+[[config]]
+obj = 'skillcape_woodcutting'
+id = 9807
+
+[[config]]
+obj = 'skillcape_woodcutting_trimmed'
+id = 9808
+
+[[config]]
+obj = 'skillcape_woodcutting_hood'
+id = 9809

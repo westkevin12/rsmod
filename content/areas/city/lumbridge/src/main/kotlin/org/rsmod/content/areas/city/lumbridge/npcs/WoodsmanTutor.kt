@@ -1,18 +1,23 @@
 package org.rsmod.content.areas.city.lumbridge.npcs
 
+import jakarta.inject.Inject
 import org.rsmod.api.config.refs.content
 import org.rsmod.api.config.refs.objs
 import org.rsmod.api.invtx.invAdd
+import org.rsmod.api.invtx.invAddOrDrop
+import org.rsmod.api.invtx.invTakeFee
 import org.rsmod.api.player.dialogue.Dialogue
+import org.rsmod.api.player.output.spam
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.stat.baseWoodcuttingLvl
+import org.rsmod.api.repo.obj.ObjRepository
 import org.rsmod.api.script.advanced.onUnimplementedOpNpc1
 import org.rsmod.content.areas.city.lumbridge.configs.lumbridge_npcs
 import org.rsmod.game.entity.Npc
 import org.rsmod.plugin.scripts.PluginScript
 import org.rsmod.plugin.scripts.ScriptContext
 
-class WoodsmanTutor : PluginScript() {
+class WoodsmanTutor @Inject constructor(private val objRepo: ObjRepository) : PluginScript() {
     override fun ScriptContext.startup() {
         onUnimplementedOpNpc1(lumbridge_npcs.woodsman_tutor) { startDialogue(it.npc) }
     }
@@ -23,7 +28,7 @@ class WoodsmanTutor : PluginScript() {
 
     private suspend fun Dialogue.woodsmanDialogue() {
         when {
-            player.baseWoodcuttingLvl >= 99 -> TODO("Mastery dialogue")
+            player.baseWoodcuttingLvl >= 99 -> masteryDialogue()
             player.baseWoodcuttingLvl in 29..98 -> highLevelMenu()
             player.baseWoodcuttingLvl in 20..28 -> intermediateLevelMenu()
             else -> lowLevelMenu()
@@ -307,5 +312,54 @@ class WoodsmanTutor : PluginScript() {
                 "person who has achieved the highest possible level in a " +
                 "skill can wear one.",
         )
+    }
+
+    private suspend fun Dialogue.masteryDialogue() {
+        val choice =
+            choice2("What is that cape you're wearing?", 1, "Can I buy a Woodcutting skillcape?", 2)
+        if (choice == 1) {
+            capeExplanationMastery()
+        } else if (choice == 2) {
+            purchaseSkillcape()
+        }
+    }
+
+    private suspend fun Dialogue.capeExplanationMastery() {
+        chatPlayer(happy, "What is that cape you're wearing?")
+        chatNpc(
+            neutral,
+            "This is a Skillcape of Woodcutting, wearing one " +
+                "increases your chance of finding bird's nests. Only a " +
+                "person who has achieved the highest possible level in a " +
+                "skill can wear one.",
+        )
+        masteryDialogue()
+    }
+
+    private suspend fun Dialogue.purchaseSkillcape() {
+        chatPlayer(quiz, "Can I buy a Woodcutting skillcape?")
+        val confirm =
+            choice2(
+                "Yes",
+                1,
+                "No, thank you.",
+                2,
+                 title = "Are you sure you want to buy a Woodcutting cape for 99,000 coins?"
+            )
+        if (confirm == 2) {
+            chatNpc(neutral, "Perhaps another time then.")
+            return
+        }
+        if (player.inv.freeSpace() < 2) {
+            chatNpc(sad, "You need at least two free inventory spaces to buy a skillcape.")
+            return
+        }
+        if (!player.invTakeFee(99000)) {
+            chatNpc(sad, "You don't have enough money to buy a skillcape. They cost 99,000 coins.")
+            return
+        }
+        player.spam("You buy a Woodcutting skillcape and hood.")
+        player.invAddOrDrop(objRepo, objs.woodcutting_skillcape)
+        player.invAddOrDrop(objRepo, objs.woodcutting_hood)
     }
 }
