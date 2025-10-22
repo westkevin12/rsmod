@@ -16,5 +16,6 @@ object GameServerModule : ExtendedModule() {
         install(ScannerModule)
         install(ServiceModule)
         install(SymbolModule)
+        bind(kotlin.random.Random::class.java).toInstance(kotlin.random.Random.Default)
     }
 }

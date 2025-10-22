@@ -14,7 +14,9 @@ private data class SharedDropFile(val tables: List<SharedDropTable> = emptyList(
 private data class SharedDropTable(val name: String, val main: List<Drop> = emptyList())
 
 @Singleton
-public class DropService @Inject constructor(private val dropTables: Map<Int, NpcDropTable>) {
+public class DropService
+@Inject
+constructor(private val dropTables: Map<Int, NpcDropTable>, private val random: Random) {
     public fun roll(npcId: Int): List<RolledDrop> {
         val table = dropTables[npcId] ?: return emptyList()
         val drops = mutableListOf<RolledDrop>()
@@ -23,7 +25,7 @@ public class DropService @Inject constructor(private val dropTables: Map<Int, Np
         for (drop in table.guaranteed) {
             if (drop.id == 0) continue
             val count =
-                if (drop.min >= drop.max) drop.min else Random.nextInt(drop.min, drop.max + 1)
+                if (drop.min >= drop.max) drop.min else random.nextInt(drop.min, drop.max + 1)
             if (count > 0) {
                 drops.add(RolledDrop(drop.id, count))
             }
@@ -33,14 +35,14 @@ public class DropService @Inject constructor(private val dropTables: Map<Int, Np
         val mainDrops = table.main
         val totalWeight = mainDrops.sumOf { it.weight ?: 0 }
         if (totalWeight > 0) {
-            var roll = Random.nextInt(totalWeight)
+            var roll = random.nextInt(totalWeight)
             for (drop in mainDrops) {
                 val weight = drop.weight ?: 0
                 if (roll < weight) {
                     if (drop.id != 0) {
                         val count =
                             if (drop.min >= drop.max) drop.min
-                            else Random.nextInt(drop.min, drop.max + 1)
+                            else random.nextInt(drop.min, drop.max + 1)
                         if (count > 0) {
                             drops.add(RolledDrop(drop.id, count))
                         }

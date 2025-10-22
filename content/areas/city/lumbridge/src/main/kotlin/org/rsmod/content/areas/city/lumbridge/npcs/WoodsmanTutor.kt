@@ -344,7 +344,7 @@ class WoodsmanTutor @Inject constructor(private val objRepo: ObjRepository) : Pl
                 1,
                 "No, thank you.",
                 2,
-                 title = "Are you sure you want to buy a Woodcutting cape for 99,000 coins?"
+                title = "Are you sure you want to buy a Woodcutting cape for 99,000 coins?",
             )
         if (confirm == 2) {
             chatNpc(neutral, "Perhaps another time then.")

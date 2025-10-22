@@ -19,6 +19,7 @@ kotlin = "2.2.0"
 kotlin-coroutines = "1.10.2"
 logback = "1.5.18"
 manes-versions = "0.52.0"
+mockito = "5.3.1"
 netty = "4.2.2.Final"
 okhttp = "5.0.0-alpha.16"
 otp-kotlin = "2.4.1"
@@ -51,6 +52,8 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 kotlin-inline-logger = { module = "com.michael-bull.kotlin-inline-logger:kotlin-inline-logger", version.ref = "inline-logger" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito" }
 netty-buffer = { module = "io.netty:netty-buffer", version.ref = "netty" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 otp-kotlin = { module = "dev.turingcomplete:kotlin-onetimepassword", version.ref = "otp-kotlin" }
