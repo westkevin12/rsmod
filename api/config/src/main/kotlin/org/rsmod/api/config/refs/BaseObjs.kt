@@ -35,6 +35,15 @@ object BaseObjs : ObjReferences() {
     val newcomer_map = find("newcomer_map")
     val sos_security_book = find("sos_security_book")
     val wool = find("wool")
+    val small_fishing_net = find("net")
+    val raw_shrimp = find("raw_shrimp")
+    val raw_anchovies = find("raw_anchovies")
+    val fishing_bait = find("fishing_bait")
+    val raw_salmon = find("raw_salmon")
+    val raw_tuna = find("raw_tuna")
+    val fishing_rod = find("fishing_rod")
+    val fly_fishing_rod = find("fly_fishing_rod")
+    val harpoon = find("harpoon")
 
     val cabbage = find("cabbage")
     val onion = find("onion")
@@ -1074,4 +1083,5 @@ object BaseObjs : ObjReferences() {
     val furnace_icon = find("furnace_icon_dummy", 937693285129466531)
     val mining_icon = find("mining_tutor_icon_dummy", 1887266795659978258)
     val smithing_icon = find("smithing_tutor_icon_dummy", 5958751754372942517)
+    val fishing_icon = find("fishing_tutor_icon_dummy")
 }
